@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">HashingApplication</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    
+    <string-array name="hashing_algorithms">
+        <item name="MD5">MD5</item>
+        <item name="SHA-256">SHA-256</item>
+        <item name="SHA-512">SHA-512</item>
+    </string-array>
+</resources>
