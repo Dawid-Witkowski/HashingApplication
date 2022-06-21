@@ -9,11 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import wingeddev.example.hashingapplication.R
 import wingeddev.example.hashingapplication.databinding.FragmentSelectionBinding
 import wingeddev.example.hashingapplication.presentation.mainActivity.MainActivityViewModel
+import wingeddev.example.hashingapplication.util.generateRandomString
 
 class SelectionFragment : Fragment() {
 
@@ -35,13 +38,22 @@ class SelectionFragment : Fragment() {
         _binding = FragmentSelectionBinding.inflate(inflater, container, false)
         setUpDropdownMenu(binding)
 
+        // salting functionality
+        binding.addSaltCB.setOnCheckedChangeListener { _, isChecked ->
+            binding.randomSaltTV.text = generateRandomString(32)
+            binding.randomSaltTV.isVisible = isChecked
+            binding.randomSaltTitleTV.isVisible = isChecked
+        }
+
         // generate button functionality
         binding.generateBTN.setOnClickListener {
             val usersInput = binding.textToHashET.text.toString()
+            val salt = binding.randomSaltTV.text.toString()
+            val dataToEncrypt = salt + usersInput // Prepending the salt
             val result = when(binding.selectedAlgorithmACTV.text.toString()) {
-                "MD5" -> { viewModel.md5FromText(usersInput) }
-                "SHA-256" -> { viewModel.sha256FromText(usersInput) }
-                "SHA-512" -> { viewModel.sha512FromText(usersInput) }
+                "MD5" -> { viewModel.md5FromText(dataToEncrypt) }
+                "SHA-256" -> { viewModel.sha256FromText(dataToEncrypt) }
+                "SHA-512" -> { viewModel.sha512FromText(dataToEncrypt) }
                 else -> { "Well I do not know how you have achieved that ;)" }
             }
             findNavController().navigate(R.id.resultFragment, bundleOf("result" to result))
