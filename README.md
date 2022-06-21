@@ -1,5 +1,5 @@
 # HashingApplication
-Example hashing application that allows you to hash strings with SHA-256 (Very secure), SHA-512 (Very secure) and MD5 (Not secure anymore, but it was fun to read about)
+Example hashing application that allows you to encrypt messages with SHA-256 (Very secure), SHA-512 (Very secure) and MD5 (Not secure anymore, but it was fun to read about)
 (Salting your hashes is an option too!)
 
 Project purpose is architecture not UI, feel free to do a PR to change it :laughing:
